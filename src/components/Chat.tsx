@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
-import * as SocketIO from 'socket.io';
+import {Socket} from 'socket.io-client';
 
 interface IProps {
-	socket: SocketIO.Socket;
+	socket: Socket;
 	username: string;
 	room: string;
 }
@@ -31,7 +31,7 @@ function Chat({ socket, username, room }: IProps) {
 					new Date(Date.now()).getMinutes(),
 			};
 
-			await socket.emit('send_message', messageData);
+			socket.emit('send_message', messageData);
 			setMessageList((list: IMessage[]) => [...list, messageData]);
 			setCurrentMessage('');
 		}
